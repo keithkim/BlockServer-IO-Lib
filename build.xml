@@ -17,9 +17,9 @@
 		<javac srcdir="${src.dir}/java" destdir="${classes.dir}" classpathref="libpath"/>
 	</target>
 	<target name="expjarparent" depends="compile">
-		<jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+		<delete file="${expjar.dir}/IO-Lib.jar"/>
+		<jar destfile="${expjar.dir}/IO-Lib.jar" basedir="${classes.dir}">
 			<zipfileset dir="resources" includes="." prefix="resources"/>
-			<fileset dir="." includes="resources/**" />
 		</jar>
 	</target>
 </project>
