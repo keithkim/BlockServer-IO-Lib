@@ -13,6 +13,7 @@
 
 	<target name="compile">
 		<mkdir dir="${classes.dir}"/>
+		<mkdir dir="${lib.dir}"/>
 		<javac srcdir="${src.dir}/java" destdir="${classes.dir}" classpathref="libpath"/>
 	</target>
 	<target name="expjarparent" depends="compile">
