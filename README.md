@@ -1,4 +1,3 @@
-BSF-Lib
+IO-Lib
 =======
-
-An IO library for .bsf (blockserver format) files.
+An IO library used by the BlockServer project.

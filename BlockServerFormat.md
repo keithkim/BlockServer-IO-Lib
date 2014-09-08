@@ -64,8 +64,8 @@ All BlockServerFormat files have a common header and footer.
 ```yaml
 # Header
 RawString: 0x50b5ff # 5([s]tart)0([o]f)b(lock)5([s]erver)f(ormat)f(ile)
-Byte: BSF version ID
-Byte: ID of the type
+Short: BSF version ID
+Short: ID of the type
 # Footer
 RawString: 0xe0b5ff # e(nd)0([o]f)b(lock)5([s]erver)f(ormat)f(ile)
 ```

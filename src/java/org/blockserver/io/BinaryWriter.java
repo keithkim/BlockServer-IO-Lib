@@ -8,15 +8,20 @@ import java.nio.ByteBuffer;
 
 public class BinaryWriter implements Flushable, Closeable{
 	protected OutputStream os;
+
 	public BinaryWriter(OutputStream os){
 		this.os = os;
 	}
+
+	@Override
 	public void flush() throws IOException{
 		os.flush();
 	}
+	@Override
 	public void close() throws IOException{
 		os.close();
 	}
+
 	public void writeString(String string) throws IOException{
 		writeString(string, 2);
 	}
@@ -57,5 +62,44 @@ public class BinaryWriter implements Flushable, Closeable{
 	}
 	public void writeNat(int oneByte) throws IOException{
 		os.write(oneByte);
+	}
+
+	public <T> void writeObject(T obj, Object[] args) throws IOException{
+		if(obj instanceof CharSequence){
+			boolean written = false;
+			if(args.length > 0){
+				if(args[0] instanceof Integer){
+					writeString(obj.toString(), (int) args[0]);
+					written = true;
+				}
+			}
+			if(!written){
+				writeString(obj.toString());
+			}
+		}
+		else if(obj instanceof Byte){
+			writeByte((byte) (Byte) obj);
+		}
+		else if(obj instanceof Short){
+			writeShort((short) (Short) obj);
+		}
+		else if(obj instanceof Integer){
+			writeInt((int) (Integer) obj);
+		}
+		else if(obj instanceof Long){
+			writeLong((long) (Long) obj);
+		}
+		else if(obj instanceof Float){
+			writeFloat((float) (Float) obj);
+		}
+		else if(obj instanceof Double){
+			writeDouble((double) (Double) obj);
+		}
+		else{
+			writeUnknownType(obj, args);
+		}
+	}
+	protected <T> void writeUnknownType(T obj, Object[] args) throws IOException{
+		throw new UnsupportedOperationException(String.format("Unknown BSF object type %s", obj.getClass().getName()));
 	}
 }
