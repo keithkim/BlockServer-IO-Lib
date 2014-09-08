@@ -18,8 +18,6 @@
 	</target>
 	<target name="expjarparent" depends="compile">
 		<delete file="${expjar.dir}/IO-Lib.jar"/>
-		<jar destfile="${expjar.dir}/IO-Lib.jar" basedir="${classes.dir}">
-			<zipfileset dir="resources" includes="." prefix="resources"/>
-		</jar>
+		<jar destfile="${expjar.dir}/IO-Lib.jar" basedir="${classes.dir}"/>
 	</target>
 </project>
