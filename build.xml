@@ -14,7 +14,7 @@
 	<target name="compile">
 		<mkdir dir="${classes.dir}"/>
 		<mkdir dir="${lib.dir}"/>
-		<javac srcdir="${src.dir}/java" destdir="${classes.dir}" classpathref="libpath" includeAntRuntime="false" excludes="*/package-info.java"/>
+		<javac srcdir="${src.dir}/java" destdir="${classes.dir}" classpathref="libpath" includeAntRuntime="false" excludes="*/package-info.java" createMissingPackageInfoClass="false">
 	</target>
 	<target name="expjarparent" depends="compile">
 		<delete file="${expjar.dir}/IO-Lib.jar"/>
