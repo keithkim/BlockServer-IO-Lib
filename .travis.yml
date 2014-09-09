@@ -1,2 +1,3 @@
 language: java
 script: ant compile
+before_script: ant -version
