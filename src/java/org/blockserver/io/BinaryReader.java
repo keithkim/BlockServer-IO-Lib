@@ -4,14 +4,14 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.util.List;
-import java.util.Locale;
 
 public class BinaryReader implements Closeable{
 	protected InputStream is;
+
 	public BinaryReader(InputStream is){
 		this.is = is;
 	}
+
 	@Override
 	public void close() throws IOException{
 		is.close();
@@ -69,33 +69,38 @@ public class BinaryReader implements Closeable{
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> T readType(Class<T> t, List<Object> args) throws IllegalArgumentException, IOException{
-		if(t.equals(Byte.class)){
+	public <T> T readType(Class<T> clazz, Object[] args) throws IOException{
+		if(clazz.equals(String.class)){
+			if(args.length > 0){
+				Object arg = args[0];
+				if(arg instanceof Integer){
+					return (T) readString((int) arg);
+				}
+			}
+			return (T) readString();
+		}
+		else if(clazz.equals(Byte.class)){
 			return (T) (Byte) readByte();
 		}
-		if(t.equals(Short.class)){
+		else if(clazz.equals(Short.class)){
 			return (T) (Short) readShort();
 		}
-		if(t.equals(Integer.class)){
+		else if(clazz.equals(Integer.class)){
 			return (T) (Integer) readInt();
 		}
-		if(t.equals(Long.class)){
+		else if(clazz.equals(Long.class)){
 			return (T) (Long) readLong();
 		}
-		if(t.equals(Float.class)){
+		else if(clazz.equals(Float.class)){
 			return (T) (Float) readFloat();
 		}
-		if(t.equals(Double.class)){
+		else if(clazz.equals(Double.class)){
 			return (T) (Double) readDouble();
 		}
-		if(t.equals(String.class) || t.equals(CharSequence.class)){
-			return (T) (String) readString();
-		}
-		return handleUnknownType(t, args);
+		return getUnknownTypeValue(clazz, args);
 	}
-	protected <T> T handleUnknownType(Class<T> t, List<Object> args) throws IllegalArgumentException, IOException{
-		throw new IllegalArgumentException(String.format(Locale.US,
-				"Unknown type %s", t.getSimpleName()));
+	protected <T> T getUnknownTypeValue(Class<T> clazz, Object[] args) throws IOException{
+		throw new java.lang.UnsupportedOperationException(String.format("Trying to read unknown type %s from class %s", clazz.getSimpleName(), getClass().getName()));
 	}
 
 	protected void falloc(int l) throws IOException{

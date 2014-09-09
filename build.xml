@@ -1,0 +1,23 @@
+<project name="IO-Lib" basedir="." default="main">
+	<property name="src.dir" value="src"/>
+	<property name="lib.dir" value="lib"/>
+	<property name="build.dir" value="build"/>
+
+	<property name="classes.dir" value="${build.dir}/classes"/>
+	<property name="jar.dir" value="${build.dir}/jars"/>
+	<property name="expjar.dir" value=".."/>
+
+	<path id="libpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar"/>
+	</path>
+
+	<target name="compile">
+		<mkdir dir="${classes.dir}"/>
+		<mkdir dir="${lib.dir}"/>
+		<javac srcdir="${src.dir}/java" destdir="${classes.dir}" classpathref="libpath"/>
+	</target>
+	<target name="expjarparent" depends="compile">
+		<delete file="${expjar.dir}/IO-Lib.jar"/>
+		<jar destfile="${expjar.dir}/IO-Lib.jar" basedir="${classes.dir}"/>
+	</target>
+</project>
