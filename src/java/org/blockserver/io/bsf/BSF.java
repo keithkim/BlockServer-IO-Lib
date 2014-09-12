@@ -46,7 +46,10 @@ public final class BSF{
 	}
 
 	public static enum Version{
-		DOOR(0);
+		HOMO_HABILIS		(0),
+		KENICHTHYS_CAMPBELLI(1),
+//		AMOEBA_PROTEUS		(2)
+		;
 
 		private int id;
 
@@ -87,7 +90,7 @@ public final class BSF{
 			return null;
 		}
 		public static Version newestVersion(){
-			return DOOR;
+			return HOMO_HABILIS;
 		}
 	}
 }
