@@ -1,7 +1,12 @@
 package org.blockserver.io.bsf;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+
+import org.blockserver.objects.IInventory;
+import org.blockserver.objects.IItem;
 
 public final class BSF{
 	public final static byte[] HEADER = {
@@ -10,6 +15,10 @@ public final class BSF{
 	public final static byte[] FOOTER = {
 		(byte) 0xe0, (byte) 0xb5, (byte) 0xff
 	};
+	public final static String P_CASE_NAME = "caseName";
+	public final static String P_VECTORS = "vectors";
+	public final static String P_WORLD_NAME = "worldName";
+	public final static String P_I_INVENTORY = "dummyInventory";
 
 	@SuppressWarnings("serial")
 	public static class InvalidBSFFileException extends IOException{
@@ -23,17 +32,43 @@ public final class BSF{
 	}
 
 	public static enum Type{
-		PLAYER(0x00);
+		PLAYER(0x00){
+			@Override
+			public Map<String, Object> read(BSFReader reader) throws IOException{
+				Map<String, Object> map = new HashMap<String, Object>(4);
+				map.put(P_CASE_NAME, reader.readString(1));
+				double[] vectors = new double[3];
+				for(int i = 0; i < 3; i++){
+					vectors[i] = reader.readDouble();
+				}
+				map.put(P_VECTORS, vectors);
+				map.put(P_WORLD_NAME, reader.readString(1));
+				map.put(P_I_INVENTORY, reader.readInventory());
+				return map;
+			}
+			@Override
+			@SuppressWarnings("unchecked")
+			public void write(BSFWriter writer, Map<String, Object> args) throws IOException{
+				writer.writeString((String) args.get(P_CASE_NAME), 1);
+				for(double v: (double[]) args.get(P_VECTORS)){
+					writer.writeDouble(v);
+				}
+				writer.writeString((String) args.get(P_WORLD_NAME), 1);
+				writer.writeInventory((IInventory<? extends IItem>) args.get(P_I_INVENTORY));
+			}
+		};
 
 		private int id;
 
-		Type(int id){
+		private Type(int id){
 			this.id = id;
 		}
 
 		public short getID(){
 			return (short) id;
 		}
+		public abstract Map<String, Object> read(BSFReader reader) throws IOException;
+		public abstract void write(BSFWriter writer, Map<String, Object> args) throws IOException;
 
 		public static Type get(int id){
 			for(Type t: values()){
@@ -46,14 +81,15 @@ public final class BSF{
 	}
 
 	public static enum Version{
-		HOMO_HABILIS		(0),
-		KENICHTHYS_CAMPBELLI(1),
-//		AMOEBA_PROTEUS		(2)
+		 HOMO_HABILIS			(0)
+		,EUSELASIA_ORFITA		(1)
+//		,KENICHTHYS_CAMPBELLI	(2)
+//		,AMOEBA_PROTEUS			(3)
 		;
 
 		private int id;
 
-		Version(int id){
+		private Version(int id){
 			this.id = id;
 		}
 

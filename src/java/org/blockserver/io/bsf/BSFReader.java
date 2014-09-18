@@ -34,6 +34,10 @@ public class BSFReader extends BinaryReader{
 		super.close();
 	}
 
+	public Map<String, Object> readAll() throws IOException{
+		return type.read(this);
+	}
+
 	public <T> List<T> readList(Class<T> clazz) throws IOException{
 		return readList(clazz, new Object[0]);
 	}

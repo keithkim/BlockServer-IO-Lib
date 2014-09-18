@@ -34,6 +34,10 @@ public class BSFWriter extends BinaryWriter{
 		super.close();
 	}
 
+	public void writeAll(Map<String, Object> args) throws IOException{
+		type.write(this, args);
+	}
+
 	public <T> void writeList(Class<T> tclazz, List<T> list, Object... args) throws IOException{
 		writeInt(list.size());
 		for(T t: list){
