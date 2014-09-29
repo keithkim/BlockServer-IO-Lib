@@ -19,6 +19,9 @@ public final class BSF{
 	public final static String P_VECTORS = "vectors";
 	public final static String P_WORLD_NAME = "worldName";
 	public final static String P_I_INVENTORY = "dummyInventory";
+	public final static String LI_SPAWN_X = "spawn-x";
+	public final static String LI_SPAWN_Y = "spawn-y";
+	public final static String LI_SPAWN_Z = "spawn-z";
 
 	@SuppressWarnings("serial")
 	public static class InvalidBSFFileException extends IOException{
@@ -55,6 +58,27 @@ public final class BSF{
 				}
 				writer.writeString((String) args.get(P_WORLD_NAME), 1);
 				writer.writeInventory((IInventory<? extends IItem>) args.get(P_I_INVENTORY));
+			}
+		},
+		LEVEL_INDEX(0x01){
+			@Override
+			public Map<String, Object> read(BSFReader reader)
+					throws IOException{
+				double spawnX = reader.readDouble();
+				double spawnY = reader.readDouble();
+				double spawnZ = reader.readDouble();
+				Map<String, Object> out = new HashMap<String, Object>(3);
+				out.put(LI_SPAWN_X, spawnX);
+				out.put(LI_SPAWN_Y, spawnY);
+				out.put(LI_SPAWN_Z, spawnZ);
+				return out;
+			}
+			@Override
+			public void write(BSFWriter writer, Map<String, Object> args)
+					throws IOException{
+				writer.writeDouble((double) args.get(LI_SPAWN_X));
+				writer.writeDouble((double) args.get(LI_SPAWN_Y));
+				writer.writeDouble((double) args.get(LI_SPAWN_Z));
 			}
 		};
 
