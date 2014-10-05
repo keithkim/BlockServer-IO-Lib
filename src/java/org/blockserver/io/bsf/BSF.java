@@ -22,6 +22,8 @@ public final class BSF{
 	public final static String LI_SPAWN_X = "spawn-x";
 	public final static String LI_SPAWN_Y = "spawn-y";
 	public final static String LI_SPAWN_Z = "spawn-z";
+	public final static String LI_GENERATOR = "generator";
+	public final static String LI_GENERATION_OPTS = "generation-opts";
 
 	@SuppressWarnings("serial")
 	public static class InvalidBSFFileException extends IOException{
@@ -67,10 +69,14 @@ public final class BSF{
 				double spawnX = reader.readDouble();
 				double spawnY = reader.readDouble();
 				double spawnZ = reader.readDouble();
+				String generator = reader.readString();
+				byte[] generationOpts = reader.read(reader.readInt());
 				Map<String, Object> out = new HashMap<String, Object>(3);
 				out.put(LI_SPAWN_X, spawnX);
 				out.put(LI_SPAWN_Y, spawnY);
 				out.put(LI_SPAWN_Z, spawnZ);
+				out.put(LI_GENERATOR, generator);
+				out.put(LI_GENERATION_OPTS, generationOpts);
 				return out;
 			}
 			@Override
@@ -79,6 +85,8 @@ public final class BSF{
 				writer.writeDouble((double) args.get(LI_SPAWN_X));
 				writer.writeDouble((double) args.get(LI_SPAWN_Y));
 				writer.writeDouble((double) args.get(LI_SPAWN_Z));
+				writer.writeString((String) args.get(LI_GENERATOR));
+				writer.writeBytes((byte[]) args.get(LI_GENERATION_OPTS));
 			}
 		};
 
