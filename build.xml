@@ -1,4 +1,4 @@
-<project name="IO-Lib" basedir="." default="main">
+<project name="IO-Lib" basedir=".">
 	<property name="src.dir" value="src"/>
 	<property name="lib.dir" value="lib"/>
 	<property name="build.dir" value="build"/>

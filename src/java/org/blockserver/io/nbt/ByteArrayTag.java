@@ -14,7 +14,7 @@ public class ByteArrayTag extends NamedTag{
 	@Override
 	public void write(NBTWriter writer) throws IOException{
 		writer.writeInt(v.length);
-		writer.writeBytes(v);
+		writer.write(v);
 	}
 	@Override
 	public void read(NBTReader reader) throws IOException{

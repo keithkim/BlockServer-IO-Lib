@@ -57,7 +57,7 @@ public class BinaryWriter implements Flushable, Closeable{
 	public void write(long x, int len) throws IOException{
 		os.write(BinaryUtils.write(x, len));
 	}
-	public void writeBytes(byte[] bytes) throws IOException{
+	public void write(byte[] bytes) throws IOException{
 		os.write(bytes);
 	}
 	public void writeNat(int oneByte) throws IOException{

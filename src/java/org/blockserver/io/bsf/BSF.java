@@ -86,7 +86,7 @@ public final class BSF{
 				writer.writeDouble((double) args.get(LI_SPAWN_Y));
 				writer.writeDouble((double) args.get(LI_SPAWN_Z));
 				writer.writeString((String) args.get(LI_GENERATOR));
-				writer.writeBytes((byte[]) args.get(LI_GENERATION_OPTS));
+				writer.write((byte[]) args.get(LI_GENERATION_OPTS));
 			}
 		};
 

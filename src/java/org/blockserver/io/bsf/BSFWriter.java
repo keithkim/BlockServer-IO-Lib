@@ -23,14 +23,14 @@ public class BSFWriter extends BinaryWriter{
 		init();
 	}
 	protected void init() throws IOException{
-		writeBytes(BSF.HEADER);
+		write(BSF.HEADER);
 		writeShort(version.getID());
 		writeShort(type.getID());
 	}
 
 	@Override
 	public void close() throws IOException{
-		writeBytes(BSF.FOOTER);
+		write(BSF.FOOTER);
 		super.close();
 	}
 
