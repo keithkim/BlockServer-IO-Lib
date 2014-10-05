@@ -8,6 +8,9 @@ public class ByteTag extends NamedTag{
 	public void setValue(byte b){
 		this.b = b;
 	}
+	public byte getValue(){
+		return b;
+	}
 
 	@Override
 	public void write(NBTWriter writer) throws IOException{

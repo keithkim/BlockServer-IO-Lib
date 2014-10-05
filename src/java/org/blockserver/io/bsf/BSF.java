@@ -30,7 +30,6 @@ public final class BSF{
 		public InvalidBSFFileException(int lack){
 			this(String.format("Unexpected end of file: %d more bytes required", lack));
 		}
-
 		public InvalidBSFFileException(String message){
 			super("Error parsing BSF file: ".concat(message));
 		}
