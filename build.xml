@@ -28,4 +28,14 @@
 		<delete file="${expjar.dir}/IO-Lib.jar"/>
 		<jar destfile="${expjar.dir}/IO-Lib.jar" basedir="${classes.dir}"/>
 	</target>
+	<target name="testjar" depends="compile">
+		<jar destfile="compiled.jar" basedir="${classses.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="org.blockserver.io.tests.IOLib_Tests"/>
+			</manifest>
+		</jar>
+	</target>
+	<target name="testlib" depends="testjar">
+		<java fork="true" jar="compiled.jar"/>
+	</target>
 </project>

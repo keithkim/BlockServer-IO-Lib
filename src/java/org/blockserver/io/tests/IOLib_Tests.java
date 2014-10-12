@@ -17,6 +17,7 @@ public class IOLib_Tests{
 		testByte(file, (byte) 2);
 		testByte(file, (byte) 255);
 		// TODO more
+		System.exit(0);
 	}
 	private static void testByte(File file, byte b){
 		try{
