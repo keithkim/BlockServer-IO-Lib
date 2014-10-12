@@ -3,7 +3,6 @@ package org.blockserver.io.tests;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 import org.blockserver.io.bsf.BSF.Type;
 import org.blockserver.io.bsf.BSFReader;
@@ -20,6 +19,7 @@ public class IOLib_Tests{
 		System.exit(0);
 	}
 	private static void testByte(File file, byte b){
+		System.out.println(String.format("Writing byte %d to %s...", b, file));
 		try{
 			BSFWriter writer = new BSFWriter(new FileOutputStream(file, false), Type.PLAYER);
 			writer.writeByte(b);
@@ -28,12 +28,26 @@ public class IOLib_Tests{
 			byte read = reader.readByte();
 			reader.close();
 			if(read != b){
+				System.out.println(String.format("Expected byte %d, written and read "
+						+ "as %d", b, read));
+				String output = "Buffer: 0x";
+				FileInputStream is = new FileInputStream(file);
+				int c;
+				while((c = is.read()) != -1){
+					output += Integer.toHexString(c);
+				}
+				is.close();
+				System.out.println(output);
 				System.exit(3);
 			}
+			System.out.println("Success!");
 		}
-		catch(IOException e){
+		catch(Exception e){
 			e.printStackTrace();
 			System.exit(2);
+		}
+		finally{
+			file.delete();
 		}
 	}
 }
