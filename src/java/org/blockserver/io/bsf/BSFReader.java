@@ -92,8 +92,16 @@ public class BSFReader extends BinaryReader{
 		if(!Arrays.equals(testant, expected)){
 			throw new BSF.InvalidBSFFileException(String.format(
 					"Incorrect %s: %s. Expected: %s", name,
-					Arrays.toString(testant), Arrays.toString(expected)));
+					arrayToString(testant), arrayToString(expected)));
 		}
+	}
+	public static String arrayToString(byte[] buffer){
+		StringBuilder output = new StringBuilder(buffer.length + 2);
+		output.append("0x");
+		for(byte b: buffer){
+			output.append(Integer.toHexString(b));
+		}
+		return output.toString();
 	}
 	@Override
 	protected IOException getUEOFException(int needed){
