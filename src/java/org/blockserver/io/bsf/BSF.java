@@ -148,7 +148,7 @@ public final class BSF{
 			return out;
 		}
 
-		public static Version get(byte b){
+		public static Version get(short b){
 			for(Version v: values()){
 				if(v.getID() == b){
 					return v;
