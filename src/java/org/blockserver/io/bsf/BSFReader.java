@@ -27,7 +27,6 @@ public class BSFReader extends BinaryReader{
 			throw new BSF.InvalidBSFFileException("Invalid/Unsupported version/type");
 		}
 	}
-
 	@Override
 	public void close() throws IOException{
 		validate(read(BSF.FOOTER.length), BSF.FOOTER, "footer");
@@ -106,5 +105,12 @@ public class BSFReader extends BinaryReader{
 	@Override
 	protected IOException getUEOFException(int needed){
 		return new BSF.InvalidBSFFileException(needed);
+	}
+
+	public BSF.Version getVersion(){
+		return version;
+	}
+	public BSF.Type getType(){
+		return type;
 	}
 }

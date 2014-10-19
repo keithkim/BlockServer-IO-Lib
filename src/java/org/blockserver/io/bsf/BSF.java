@@ -25,8 +25,8 @@ public final class BSF{
 	public final static String LI_GENERATOR = "generator";
 	public final static String LI_GENERATION_OPTS = "generation-opts";
 
-	@SuppressWarnings("serial")
 	public static class InvalidBSFFileException extends IOException{
+		private static final long serialVersionUID = -1036754379219128367L;
 		public InvalidBSFFileException(int lack){
 			this(String.format("Unexpected end of file: %d more bytes required", lack));
 		}
@@ -157,7 +157,7 @@ public final class BSF{
 			return null;
 		}
 		public static Version newestVersion(){
-			return HOMO_HABILIS;
+			return EUSELASIA_ORFITA;
 		}
 	}
 }
