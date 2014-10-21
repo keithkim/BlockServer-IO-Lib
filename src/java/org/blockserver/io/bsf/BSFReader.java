@@ -21,7 +21,8 @@ public class BSFReader extends BinaryReader{
 	}
 	protected void init() throws IOException{
 		validate(read(BSF.HEADER.length), BSF.HEADER, "header");
-		version = BSF.Version.get(readShort());
+		short versionId = readShort();
+		version = BSF.Version.get(versionId);
 		type = BSF.Type.get(readShort());
 		if(version == null){
 			throw new BSF.InvalidBSFFileException("Invalid version");

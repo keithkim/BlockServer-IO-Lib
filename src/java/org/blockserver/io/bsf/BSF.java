@@ -107,7 +107,7 @@ public final class BSF{
 					return t;
 				}
 			}
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException(String.format("Type %d not supported", id));
 		}
 	}
 
@@ -125,7 +125,6 @@ public final class BSF{
 		}
 
 		public short getID(){
-			System.out.println(String.format("%s: %d", name(), ordinal()));
 			return (short) id;
 		}
 		public char getVersionString(){
