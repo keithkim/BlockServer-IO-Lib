@@ -1,5 +1,6 @@
 package org.blockserver.io.tests;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -55,20 +56,7 @@ public class IOLib_Tests{
 				System.out.println("Success!");
 			}
 			catch(BSF.InvalidBSFFileException e){
-				e.printStackTrace();
-				String output = "Buffer: 0x";
-				FileInputStream is = new FileInputStream(file);
-				int c;
-				byte[] buffer = new byte[is.available()];
-				int i = 0;
-				while((c = is.read()) != -1){
-					buffer[i++] = (byte) c;
-					output += Integer.toHexString(c);
-				}
-				is.close();
-				System.out.println(Arrays.toString(buffer));
-				System.out.println(output);
-				System.exit(3);
+				dumpError(file, e);
 				return;
 			}
 		}
@@ -95,21 +83,7 @@ public class IOLib_Tests{
 				System.out.println("Success!");
 			}
 			catch(BSF.InvalidBSFFileException e){
-				e.printStackTrace();
-				String output = "Buffer: 0x";
-				FileInputStream is = new FileInputStream(file);
-				int c;
-				byte[] buffer = new byte[is.available()];
-				int i = 0;
-				while((c = is.read()) != -1){
-					buffer[i++] = (byte) c;
-					output += Integer.toHexString(c);
-				}
-				is.close();
-				System.out.println(Arrays.toString(buffer));
-				System.out.println(output);
-				System.exit(3);
-				return;
+				dumpError(file, e);
 			}
 		}
 		catch(Exception e){
@@ -135,21 +109,7 @@ public class IOLib_Tests{
 				System.out.println("Success!");
 			}
 			catch(BSF.InvalidBSFFileException e){
-				e.printStackTrace();
-				String output = "Buffer: 0x";
-				FileInputStream is = new FileInputStream(file);
-				int c;
-				byte[] buffer = new byte[is.available()];
-				int i = 0;
-				while((c = is.read()) != -1){
-					buffer[i++] = (byte) c;
-					output += Integer.toHexString(c);
-				}
-				is.close();
-				System.out.println(Arrays.toString(buffer));
-				System.out.println(output);
-				System.exit(3);
-				return;
+				dumpError(file, e);
 			}
 		}
 		catch(Exception e){
@@ -175,21 +135,7 @@ public class IOLib_Tests{
 				System.out.println("Success!");
 			}
 			catch(BSF.InvalidBSFFileException e){
-				e.printStackTrace();
-				String output = "Buffer: 0x";
-				FileInputStream is = new FileInputStream(file);
-				int c;
-				byte[] buffer = new byte[is.available()];
-				int o = 0;
-				while((c = is.read()) != -1){
-					buffer[o++] = (byte) c;
-					output += Integer.toHexString(c);
-				}
-				is.close();
-				System.out.println(Arrays.toString(buffer));
-				System.out.println(output);
-				System.exit(3);
-				return;
+				dumpError(file, e);
 			}
 		}
 		catch(Exception e){
@@ -215,14 +161,7 @@ public class IOLib_Tests{
 				System.out.println("Success!");
 			}
 			catch(BSF.InvalidBSFFileException e){
-				e.printStackTrace();
-				String output = "Buffer: 0x";
-				FileInputStream is = new FileInputStream(file);
-				output += (String) toHexString(is)[0];
-				is.close();
-				System.out.println(output);
-				System.exit(3);
-				return;
+				dumpError(file, e);
 			}
 		}
 		catch(Exception e){
@@ -248,14 +187,7 @@ public class IOLib_Tests{
 				System.out.println("Success!");
 			}
 			catch(BSF.InvalidBSFFileException e){
-				e.printStackTrace();
-				String output = "Buffer: 0x";
-				FileInputStream is = new FileInputStream(file);
-				output += (String) toHexString(is)[0];
-				is.close();
-				System.out.println(output);
-				System.exit(3);
-				return;
+				dumpError(file, e);
 			}
 		}
 		catch(Exception e){
@@ -281,14 +213,7 @@ public class IOLib_Tests{
 				System.out.println("Success!");
 			}
 			catch(BSF.InvalidBSFFileException e){
-				e.printStackTrace();
-				String output = "Buffer: 0x";
-				FileInputStream is = new FileInputStream(file);
-				output += (String) toHexString(is)[0];
-				is.close();
-				System.out.println(output);
-				System.exit(3);
-				return;
+				dumpError(file, e);
 			}
 		}
 		catch(Exception e){
@@ -314,14 +239,7 @@ public class IOLib_Tests{
 				System.out.println("Success!");
 			}
 			catch(BSF.InvalidBSFFileException e){
-				e.printStackTrace();
-				String output = "Buffer: 0x";
-				FileInputStream is = new FileInputStream(file);
-				output += (String) toHexString(is)[0];
-				is.close();
-				System.out.println(output);
-				System.exit(3);
-				return;
+				dumpError(file, e);
 			}
 		}
 		catch(Exception e){
@@ -331,6 +249,7 @@ public class IOLib_Tests{
 	}
 	private static Object[] toHexString(InputStream is) throws IOException{
 		StringBuilder b = new StringBuilder(is.available() * 2 + 2);
+		b.append("0x");
 		List<Byte> list = new ArrayList<Byte>(is.available());
 		int c;
 		while((c = is.read()) != -1){
@@ -347,5 +266,31 @@ public class IOLib_Tests{
 			array[i++] = bite;
 		}
 		return new Object[]{b.toString(), array};
+	}
+	private static void dumpError(File file, BSF.InvalidBSFFileException e){
+		e.printStackTrace();
+		try{
+			System.out.print("Buffer at " + file.getCanonicalPath() + ": ");
+			byte[] buffer = file_get_contents(file);
+			System.out.println(Arrays.toString(buffer));
+			System.out.println("(" + (String) toHexString(new ByteArrayInputStream(buffer))[0] + ")");
+		}
+		catch(IOException e1){
+			e1.printStackTrace();
+		}
+		System.exit(3);
+	}
+	private static byte[] file_get_contents(File file){
+		try{
+			InputStream is = new FileInputStream(file);
+			byte[] buffer = new byte[is.available()];
+			is.read(buffer);
+			is.close();
+			return buffer;
+		}
+		catch(IOException e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

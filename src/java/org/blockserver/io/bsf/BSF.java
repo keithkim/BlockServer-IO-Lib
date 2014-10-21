@@ -125,6 +125,7 @@ public final class BSF{
 		}
 
 		public short getID(){
+			System.out.println(String.format("%s: %d", name(), ordinal()));
 			return (short) id;
 		}
 		public char getVersionString(){
@@ -154,6 +155,7 @@ public final class BSF{
 					return v;
 				}
 			}
+			System.out.println(String.format("Cannot find version %d", b));
 			return null;
 		}
 		public static Version newestVersion(){

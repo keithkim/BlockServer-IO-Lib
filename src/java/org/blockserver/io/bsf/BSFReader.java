@@ -23,8 +23,11 @@ public class BSFReader extends BinaryReader{
 		validate(read(BSF.HEADER.length), BSF.HEADER, "header");
 		version = BSF.Version.get(readShort());
 		type = BSF.Type.get(readShort());
-		if(version == null || type == null){
-			throw new BSF.InvalidBSFFileException("Invalid/Unsupported version/type");
+		if(version == null){
+			throw new BSF.InvalidBSFFileException("Invalid version");
+		}
+		if(type == null){
+			throw new BSF.InvalidBSFFileException("Unsupported type");
 		}
 	}
 	@Override

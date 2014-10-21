@@ -18,8 +18,8 @@ public class BSFWriter extends BinaryWriter{
 	}
 	public BSFWriter(OutputStream os, BSF.Type type, BSF.Version version) throws IOException{
 		super(os);
-		this.type = type;
 		this.version = version;
+		this.type = type;
 		init();
 	}
 	protected void init() throws IOException{
