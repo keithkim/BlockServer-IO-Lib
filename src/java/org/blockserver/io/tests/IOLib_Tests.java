@@ -278,7 +278,7 @@ public class IOLib_Tests{
 		catch(IOException e1){
 			e1.printStackTrace();
 		}
-		System.exit(3);
+		System.exit(1);
 	}
 	private static byte[] file_get_contents(File file){
 		try{
