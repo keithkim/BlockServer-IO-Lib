@@ -6,6 +6,7 @@
 	<property name="classes.dir" value="${build.dir}/classes"/>
 	<property name="jar.dir" value="${build.dir}/jars"/>
 	<property name="expjar.dir" value=".."/>
+	<property name="test-class" value="org.blockserver.io.tests.IOLib_Tests"/>
 
 	<path id="libpath">
 		<fileset dir="${lib.dir}" includes="**/*.jar"/>
@@ -31,11 +32,11 @@
 	<target name="testjar" depends="compile">
 		<jar destfile="compiled.jar" basedir="${classses.dir}">
 			<manifest>
-				<attribute name="Main-Class" value="org.blockserver.io.tests.IOLib_Tests"/>
+				<attribute name="Main-Class" value="${test-class}"/>
 			</manifest>
 		</jar>
 	</target>
-	<target name="testlib" depends="testjar">
+	<target name="test" depends="testjar">
 		<java fork="true" jar="compiled.jar"/>
 	</target>
 </project>

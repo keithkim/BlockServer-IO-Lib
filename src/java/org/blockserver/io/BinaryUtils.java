@@ -15,9 +15,8 @@ public abstract class BinaryUtils{
 	public static long read(byte[] buffer, int start, int length){
 		long x = 0;
 		for(int i = 0; i < length; i++){
-			int shift = buffer[start + i];
+			x |= buffer[start + i];
 			x <<= 8;
-			x |= shift;
 		}
 		return x;
 	}
