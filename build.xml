@@ -30,7 +30,7 @@
 		<jar destfile="${expjar.dir}/IO-Lib.jar" basedir="${classes.dir}"/>
 	</target>
 	<target name="testjar" depends="compile">
-		<jar destfile="compiled.jar" basedir="${classses.dir}">
+		<jar destfile="compiled.jar" basedir="${classes.dir}">
 			<manifest>
 				<attribute name="Main-Class" value="${test-class}"/>
 			</manifest>
