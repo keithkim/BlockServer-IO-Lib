@@ -1,3 +1,3 @@
 language: java
-script: ant compile
+script: ant test
 before_script: ant -version
