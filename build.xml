@@ -29,6 +29,10 @@
 		<delete file="${expjar.dir}/IO-Lib.jar"/>
 		<jar destfile="${expjar.dir}/IO-Lib.jar" basedir="${classes.dir}"/>
 	</target>
+	<target name="export" depends="compile" description="External target for exporting jar to supplied export.target property">
+		<delete file="${export.target}"/>
+		<jar destfile="${export.target}" basedir="${classes.dir}"/>
+	</target>
 	<target name="testjar" depends="compile">
 		<jar destfile="compiled.jar" basedir="${classes.dir}">
 			<manifest>
