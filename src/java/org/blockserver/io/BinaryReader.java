@@ -7,9 +7,14 @@ import java.nio.ByteBuffer;
 
 public class BinaryReader implements Closeable{
 	protected InputStream is;
+	protected boolean endianness;
 
 	public BinaryReader(InputStream is){
+		this(is, BinaryUtils.BIG_ENDIAN);
+	}
+	public BinaryReader(InputStream is, boolean endianness){
 		this.is = is;
+		this.endianness = endianness;
 	}
 
 	@Override
@@ -65,7 +70,7 @@ public class BinaryReader implements Closeable{
 	}
 	public long readNat(int length) throws IOException{
 		falloc(length);
-		return BinaryUtils.read(read(length), 0, length);
+		return BinaryUtils.read(read(length), 0, length, endianness);
 	}
 
 	@SuppressWarnings("unchecked")

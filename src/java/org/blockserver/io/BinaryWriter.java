@@ -8,9 +8,14 @@ import java.nio.ByteBuffer;
 
 public class BinaryWriter implements Flushable, Closeable{
 	protected OutputStream os;
+	protected boolean endianness;
 
 	public BinaryWriter(OutputStream os){
+		this(os, BinaryUtils.BIG_ENDIAN);
+	}
+	public BinaryWriter(OutputStream os, boolean endianness){
 		this.os = os;
+		this.endianness = endianness;
 	}
 
 	@Override
@@ -55,7 +60,7 @@ public class BinaryWriter implements Flushable, Closeable{
 		os.write(bb.array());
 	}
 	public void write(long x, int len) throws IOException{
-		os.write(BinaryUtils.write(x, len));
+		os.write(BinaryUtils.write(x, len, endianness));
 	}
 	public void write(byte[] bytes) throws IOException{
 		os.write(bytes);
