@@ -35,6 +35,23 @@ public class IOLib_Tests{
 		testInt(file, 1);
 		testInt(file, 2);
 		testInt(file, 0xFFFFFFFF);
+		testLong(file, 0);
+		testLong(file, 1);
+		testLong(file, 2);
+		testLong(file, 0xFFFFFFFFFFFFFFFFL);
+		testFloat(file, 0f);
+		testFloat(file, 1f);
+		testFloat(file, -1f);
+		testFloat(file, -1.5f);
+		testFloat(file, -10000000000000f);
+		testDouble(file, 0d);
+		testDouble(file, 1d);
+		testDouble(file, -1d);
+		testDouble(file, -1.5d);
+		testDouble(file, -10000000000000d);
+		testString(file, "");
+		testString(file, "abc");
+		testString(file, "\0x00");
 		System.out.println("All OK! :)");
 		System.exit(0);
 	}
