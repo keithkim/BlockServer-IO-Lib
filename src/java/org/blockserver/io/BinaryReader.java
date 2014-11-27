@@ -117,4 +117,8 @@ public class BinaryReader implements Closeable{
 	protected IOException getUEOFException(int needed){
 		return new IOException(String.format("Unexpected end of file: %d more bytes expected", needed));
 	}
+
+	public InputStream getInputStream(){
+		return is;
+	}
 }

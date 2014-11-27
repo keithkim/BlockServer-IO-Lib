@@ -107,4 +107,8 @@ public class BinaryWriter implements Flushable, Closeable{
 	protected <T> void writeUnknownType(T obj, Object[] args) throws IOException{
 		throw new UnsupportedOperationException(String.format("Unknown BSF object type %s", obj.getClass().getName()));
 	}
+
+	public OutputStream getOutputStream(){
+		return os;
+	}
 }
