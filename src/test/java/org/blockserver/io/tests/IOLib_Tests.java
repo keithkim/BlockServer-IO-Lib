@@ -295,6 +295,7 @@ public class IOLib_Tests{
 			byte[] buffer = file_get_contents(file);
 			System.out.println(Arrays.toString(buffer));
 			System.out.println("(" + (String) toHexString(new ByteArrayInputStream(buffer))[0] + ")");
+			System.err.println("Test Failure.");
 		}
 		catch(IOException e1){
 			e1.printStackTrace();
