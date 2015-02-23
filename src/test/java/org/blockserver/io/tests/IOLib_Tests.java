@@ -252,7 +252,7 @@ public class IOLib_Tests{
 				BSFReader reader = new BSFReader(new FileInputStream(file));
 				String read = reader.readString();
 				reader.close();
-				if(read != s){
+				if(!(read.equals(s))){
 					System.out.println(String.format("Expected string %s, written and read "
 							+ "as %s", s, read));
 					throw new BSF.InvalidBSFFileException("String doesn't match");
