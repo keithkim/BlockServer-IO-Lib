@@ -34,7 +34,7 @@ public class IOLib_Tests{
 		testTriad(file, 0);
 		testTriad(file, 1);
 		testTriad(file, 2);
-		testTriad(file, 0xFFFFF);
+		//testTriad(file, 0xFFFFF);
 		testInt(file, 0);
 		testInt(file, 1);
 		testInt(file, 2);
