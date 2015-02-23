@@ -217,7 +217,7 @@ public class IOLib_Tests{
 		}
 	}
 	private static void testDouble(File file, double d){
-		System.out.println(String.format("Writing double %d to %s...", d, file));
+		System.out.println(String.format("Writing double %f to %s...", d, file));
 		try{
 			BSFWriter writer = new BSFWriter(new FileOutputStream(file, false), Type.PLAYER);
 			writer.writeDouble(d);
