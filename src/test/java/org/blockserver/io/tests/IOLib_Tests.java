@@ -57,7 +57,7 @@ public class IOLib_Tests{
 		testString(file, "abc");
 		testString(file, "\0x00");
 		System.out.println("All OK! :)");
-		System.exit(0);
+		//System.exit(0);
 	}
 	private static void testByte(File file, byte b){
 		System.out.println(String.format("Writing byte %d to %s...", b, file));
