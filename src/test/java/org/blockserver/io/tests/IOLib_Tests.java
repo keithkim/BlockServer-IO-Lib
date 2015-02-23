@@ -191,7 +191,7 @@ public class IOLib_Tests{
 		}
 	}
 	private static void testFloat(File file, float f){
-		System.out.println(String.format("Writing float %d to %s...", f, file));
+		System.out.println(String.format("Writing float %f to %s...", f, file));
 		try{
 			BSFWriter writer = new BSFWriter(new FileOutputStream(file, false), Type.PLAYER);
 			writer.writeFloat(f);
