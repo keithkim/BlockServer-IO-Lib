@@ -26,6 +26,10 @@ public class BinaryWriter implements Flushable, Closeable{
 	public void close() throws IOException{
 		os.close();
 	}
+	
+	public void switchEndianness(boolean endianness){
+		this.endianness = endianness;
+	}
 
 	public void writeString(String string) throws IOException{
 		writeString(string, 2);
