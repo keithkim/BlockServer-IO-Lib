@@ -76,11 +76,11 @@ public class BinaryWriter implements Flushable, Closeable{
 		//Credit to thinkofdeath: https://github.com/thinkofdeath
 		while (true) {
 		      if ((i & 0xFFFFFF80) == 0) {
-		        writeByte(i);
+		        writeByte((byte) i);
 		        return;
 		      }
 		 
-		      writeByte(i & 0x7F | 0x80);
+		      writeByte((byte) (i & 0x7F | 0x80));
 		      i >>>= 7;
 		}
 	}
