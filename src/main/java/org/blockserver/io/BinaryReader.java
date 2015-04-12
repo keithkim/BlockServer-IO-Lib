@@ -72,6 +72,22 @@ public class BinaryReader implements Closeable{
 		falloc(length);
 		return BinaryUtils.read(read(length), 0, length, endianness);
 	}
+	public int readVarInt() throws IOException{
+		//Credit to Thinkofdeath: https://github.com/thinkofdeath
+		int i = 0;
+	    	int j = 0;
+	    	while (true) {
+	      		int k = readByte();
+	 
+	      		i |= (k & 0x7F) << j++ * 7;
+	 
+	      		if (j > 5) throw new RuntimeException("VarInt too big");
+	 
+	      		if ((k & 0x80) != 128) break;
+		}
+	 
+	    	return i;
+	}
 
 	@SuppressWarnings("unchecked")
 	public <T> T readType(Class<T> clazz, Object[] args) throws IOException{
