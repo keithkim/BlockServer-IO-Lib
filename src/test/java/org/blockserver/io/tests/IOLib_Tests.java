@@ -39,6 +39,10 @@ public class IOLib_Tests{
 		testInt(file, 1);
 		testInt(file, 2);
 		testInt(file, 0xFFFFFFFF);
+		testVarInt(file, 0);
+		testVarInt(file, 1);
+		testVarInt(file, 2);
+		testVarInt(file, 0xFFFFFFFF);
 		testLong(file, 0);
 		testLong(file, 1);
 		testLong(file, 2);
@@ -152,6 +156,32 @@ public class IOLib_Tests{
 					System.out.println(String.format("Expected int %d, written and read "
 							+ "as %d", i, read));
 					throw new BSF.InvalidBSFFileException("Int doesn't match");
+				}
+				System.out.println("Success!");
+			}
+			catch(BSF.InvalidBSFFileException e){
+				dumpError(file, e);
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			System.exit(2);
+		}
+	}
+	private static void testVarInt(File file, int i){
+		System.out.println(String.format("Writing VarInt %d to %s...", i, file));
+		try{
+			BSFWriter writer = new BSFWriter(new FileOutputStream(file, false), Type.PLAYER);
+			writer.writeVarInt(i);
+			writer.close();
+			try{
+				BSFReader reader = new BSFReader(new FileInputStream(file));
+				int read = reader.readVarInt();
+				reader.close();
+				if(read != i){
+					System.out.println(String.format("Expected VarInt %d, written and read "
+							+ "as %d", i, read));
+					throw new BSF.InvalidBSFFileException("VarInt doesn't match");
 				}
 				System.out.println("Success!");
 			}
