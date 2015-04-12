@@ -72,6 +72,18 @@ public class BinaryWriter implements Flushable, Closeable{
 	public void writeNat(int oneByte) throws IOException{
 		os.write(oneByte);
 	}
+	public void writeVarInt(int i) throws IOException{
+		//Credit to thinkofdeath: https://github.com/thinkofdeath
+		while (true) {
+		      if ((i & 0xFFFFFF80) == 0) {
+		        writeByte(i);
+		        return;
+		      }
+		 
+		      writeByte(i & 0x7F | 0x80);
+		      i >>>= 7;
+		}
+	}
 
 	public <T> void writeObject(T obj, Object[] args) throws IOException{
 		if(obj instanceof CharSequence){
